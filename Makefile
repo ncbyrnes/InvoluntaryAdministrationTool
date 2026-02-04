@@ -14,3 +14,5 @@ clean:
 	rm -rf $(BUILD_DIR)
 	rm -rf bin
 
+format:
+	clang-format -style=Microsoft -fallback-style=none -i `git ls-files -om "*.[ch]" "*.[hc]pp"`
