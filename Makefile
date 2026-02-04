@@ -1,9 +1,16 @@
-.PHONY: all clean kernel-mod
+BUILD_DIR = build
+BIN_DIR = bin
+.PHONY: all kernel-mod clean
 
 all: kernel-mod
 
 kernel-mod:
-	make -C kernel module
+	@mkdir -p $(BIN_DIR)
+	@mkdir -p $(BUILD_DIR)
+	@cd $(BUILD_DIR) && cmake ..
+	@$(MAKE) -C $(BUILD_DIR) kernel-mod
 
 clean:
-	make -C kernel clean
+	rm -rf $(BUILD_DIR)
+	rm -rf bin
+
