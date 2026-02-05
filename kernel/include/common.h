@@ -1,5 +1,5 @@
 #ifndef COMMON_H
-
+#define COMMON_H
 #define INAT_SUCCESS (0)
 #define INAT_FAILURE (1)
 

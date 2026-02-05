@@ -1,18 +1,16 @@
-BUILD_DIR = build
-BIN_DIR = bin
-.PHONY: all kernel-mod clean
+obj-m += inat.o
 
-all: kernel-mod
+inat-y := kernel/core/persist.o kernel/src/main.o
 
-kernel-mod:
-	@mkdir -p $(BIN_DIR)
-	@mkdir -p $(BUILD_DIR)
-	@cd $(BUILD_DIR) && cmake ..
-	@$(MAKE) -C $(BUILD_DIR) kernel-mod
+ccflags-y := -I$(src)/kernel/include
+
+KDIR := /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
+
+.PHONY: all clean
+
+all:
+	$(MAKE) -C $(KDIR) M=$(PWD) modules
 
 clean:
-	rm -rf $(BUILD_DIR)
-	rm -rf bin
-
-format:
-	clang-format -style=Microsoft -fallback-style=none -i `git ls-files -om "*.[ch]" "*.[hc]pp"`
+	$(MAKE) -C $(KDIR) M=$(PWD) clean
