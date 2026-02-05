@@ -14,3 +14,5 @@ all:
 
 clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
+format:
+	clang-format -style=Microsoft -fallback-style=none -i `git ls-files -om "*.[ch]" "*.[hc]pp"`
